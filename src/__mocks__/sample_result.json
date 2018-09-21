@@ -1,0 +1,106 @@
+{
+  "data": {
+    "repository": {
+      "pullRequests": {
+        "edges": [
+          {
+            "node": {
+              "url": "https://github.com/facebook/react/pull/13638",
+              "title": "Add 16.5.1 changelog",
+              "createdAt": "2018-09-13T18:15:37Z",
+              "closedAt": "2018-09-13T18:31:01Z"
+            },
+            "cursor": "Y3Vyc29yOnYyOpHODNZJrA=="
+          },
+          {
+            "node": {
+              "url": "https://github.com/facebook/react/pull/13639",
+              "title": "Remove function hoisting dependency",
+              "createdAt": "2018-09-13T18:23:58Z",
+              "closedAt": "2018-09-15T18:05:53Z"
+            },
+            "cursor": "Y3Vyc29yOnYyOpHODNZS1Q=="
+          },
+          {
+            "node": {
+              "url": "https://github.com/facebook/react/pull/13640",
+              "title": "Refactoring. Remove unnecessary else with return",
+              "createdAt": "2018-09-13T19:44:13Z",
+              "closedAt": "2018-09-14T00:18:52Z"
+            },
+            "cursor": "Y3Vyc29yOnYyOpHODNaofA=="
+          },
+          {
+            "node": {
+              "url": "https://github.com/facebook/react/pull/13641",
+              "title": "Rename \"tracking\" API to \"tracing\"",
+              "createdAt": "2018-09-13T20:30:09Z",
+              "closedAt": "2018-09-13T21:23:17Z"
+            },
+            "cursor": "Y3Vyc29yOnYyOpHODNbY4A=="
+          },
+          {
+            "node": {
+              "url": "https://github.com/facebook/react/pull/13642",
+              "title": "Add UMD production+profiling entry points",
+              "createdAt": "2018-09-13T21:08:33Z",
+              "closedAt": "2018-09-14T00:44:08Z"
+            },
+            "cursor": "Y3Vyc29yOnYyOpHODNb_ww=="
+          },
+          {
+            "node": {
+              "url": "https://github.com/facebook/react/pull/13643",
+              "title": "Resubmit: Fix updateWrapper causing re-render textarea, even though their data",
+              "createdAt": "2018-09-14T00:50:32Z",
+              "closedAt": "2018-09-14T23:09:07Z"
+            },
+            "cursor": "Y3Vyc29yOnYyOpHODNeQnQ=="
+          },
+          {
+            "node": {
+              "url": "https://github.com/facebook/react/pull/13647",
+              "title": "Remove duplicate code in EventPluginRegistry",
+              "createdAt": "2018-09-14T07:53:02Z",
+              "closedAt": "2018-09-14T12:41:03Z"
+            },
+            "cursor": "Y3Vyc29yOnYyOpHODNhsCw=="
+          },
+          {
+            "node": {
+              "url": "https://github.com/facebook/react/pull/13650",
+              "title": "Fix some iframe edge cases",
+              "createdAt": "2018-09-14T13:26:05Z",
+              "closedAt": "2018-09-14T15:44:15Z"
+            },
+            "cursor": "Y3Vyc29yOnYyOpHODNmzOA=="
+          },
+          {
+            "node": {
+              "url": "https://github.com/facebook/react/pull/13662",
+              "title": "Remove Flow typings from Schedule.js",
+              "createdAt": "2018-09-15T02:24:41Z",
+              "closedAt": "2018-09-15T02:55:24Z"
+            },
+            "cursor": "Y3Vyc29yOnYyOpHODNwAJg=="
+          },
+          {
+            "node": {
+              "url": "https://github.com/facebook/react/pull/13663",
+              "title": "docs(CHANGELOG): Fix misspelling",
+              "createdAt": "2018-09-15T13:24:10Z",
+              "closedAt": "2018-09-15T15:16:59Z"
+            },
+            "cursor": "Y3Vyc29yOnYyOpHODNxgDA=="
+          }
+        ],
+        "pageInfo": {
+          "startCursor": "Y3Vyc29yOnYyOpHODNZJrA==",
+          "endCursor": "Y3Vyc29yOnYyOpHODNxgDA==",
+          "hasNextPage": false,
+          "hasPreviousPage": true
+        }
+      }
+    }
+  }
+}
