@@ -6,12 +6,10 @@ const expect = chai.expect
 import * as sinon from "sinon"
 import axios from "axios"
 import * as moxios from "moxios"
-import * as fs from "fs"
+import { readMock } from "./__mocks__/readMock"
 import { Api, PagedCallbackResult } from "./Api"
 
-const successResponseJsonFilePath = `${__dirname}/__mocks__/sample_result.json`
-const successResponseJsonString = fs.readFileSync(successResponseJsonFilePath).toString()
-const successResponseJsonObj = JSON.parse(successResponseJsonString)
+const successResponseJsonObj = JSON.parse(readMock("sample_result"))
 const root = "https://example.com/graphql"
 
 @suite
