@@ -28,8 +28,40 @@ export class QueryBuilder {
           edges {
             node {
               url
+              permalink
+              number
+              title
               createdAt
               closedAt
+              changedFiles
+              additions
+              deletions
+              comments(first: 1) {
+                totalCount
+                nodes {
+                  createdAt
+                }
+              }
+              reviews(first: 1) {
+                totalCount
+                nodes {
+                  createdAt
+                  comments(first: 1) {
+                    nodes {
+                      createdAt
+                    }
+                  }
+                }
+              }
+              participants() {
+                totalCount
+              }
+              reactions() {
+                totalCount
+              }
+              timeline(){
+                totalCount
+              }
             }
             cursor
           }

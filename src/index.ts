@@ -1,6 +1,7 @@
 import { PullRequest } from "./PullRequest"
-import { Api, PagedCallbackResult, PullRequestJsonObject } from "./Api"
+import { Api, PagedCallbackResult } from "./Api"
 import { renderToCSV } from "./renderToCSV"
+import { toPullRequest } from "./pullRequestFromJson"
 
 const args: any = process.argv
   .slice(2)
@@ -9,13 +10,6 @@ const args: any = process.argv
     args[value] = key
     return args
   }, {})
-
-function toPullRequest(obj: PullRequestJsonObject): PullRequest {
-  let url = obj.url
-  let createdAt = new Date(obj.createdAt)
-  let closedAt = new Date(obj.closedAt)
-  return new PullRequest(url, createdAt, closedAt)
-}
 
 function flattenPages(pages) {
   return pages.map(page => page["data"].repository.pullRequests.edges).reduce((result, next) => {
