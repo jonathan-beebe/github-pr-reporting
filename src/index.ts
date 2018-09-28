@@ -40,7 +40,8 @@ function main() {
 
   let currentPage = 0
   const maxPages = pages
-  new Api("https://api.github.com/graphql")
+  const api = new Api("https://api.github.com/graphql")
+  api
     .fetchPagesOfPullRequests(
       owner,
       repo,
@@ -56,7 +57,12 @@ function main() {
     .then(mapToPullRequestModel)
     .then(renderToCSV)
     .then(console.log)
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(`
+        Error in main.
+        ${err}
+      `)
+    })
 }
 
 main()

@@ -40,7 +40,7 @@ export class Api {
           resolve(res.data)
         })
         .catch(err => {
-          console.log("error", err)
+          console.log(`\nRequest error! code: ${err.response.status}, description: ${err.response.statusText}\n`)
           reject(err)
         })
     })
@@ -54,14 +54,28 @@ export class Api {
   ): Promise<object[]> {
     return new Promise<object[]>(async (resolve, reject) => {
       let pages: object[] = []
-      let firstPage = await this.fetchPullRequests(owner, repo, token)
-      pages.push(firstPage)
+
+      try {
+        let firstPage = await this.fetchPullRequests(owner, repo, token)
+        pages.push(firstPage)
+      } catch (error) {
+        reject(error)
+        return
+      }
+
       while (pageCallback(pages[pages.length - 1]) == PagedCallbackResult.CONTINUE) {
         let lastPage = pages[pages.length - 1]
         let pageInfo = lastPage["data"].repository.pullRequests.pageInfo
-        let data = await this.fetchPullRequests(owner, repo, token, pageInfo.startCursor)
-        pages.push(data)
+
+        try {
+          let data = await this.fetchPullRequests(owner, repo, token, pageInfo.startCursor)
+          pages.push(data)
+        } catch (error) {
+          reject(error)
+          return
+        }
       }
+
       resolve(pages)
     })
   }
