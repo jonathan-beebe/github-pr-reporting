@@ -1,7 +1,28 @@
 "use strict"
 
 import { PullRequest } from "./PullRequest"
-import { PullRequestJson } from "./Api"
+
+export interface PullRequestCommentJson {
+  createdAt: string
+}
+
+export interface PullRequestCommentsJson {
+  totalCount: number
+  nodes: PullRequestCommentJson[]
+}
+
+// An interface to describe the shape of a pull request expected from the api.
+export interface PullRequestJson {
+  url: string
+  number: string
+  title: string
+  createdAt: string
+  closedAt: string
+  changedFiles: number
+  additions: number
+  deletions: number
+  comments: PullRequestCommentsJson
+}
 
 export const toPullRequest = (obj: PullRequestJson): PullRequest => {
   let url = obj.url
