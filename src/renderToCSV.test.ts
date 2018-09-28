@@ -8,12 +8,16 @@ import { PullRequest } from "./PullRequest"
 
 @suite
 class RenderToCSVTests {
+  private createPullRequest(url: string): PullRequest {
+    return PullRequest.identity().withUrl(url)
+  }
+
   @test
   "renders pull requests to csv"() {
     let input = [
-      new PullRequest("https://example.com/pr/1", new Date(), new Date()),
-      new PullRequest("https://example.com/pr/2", new Date(), new Date()),
-      new PullRequest("https://example.com/pr/3", new Date(), new Date())
+      this.createPullRequest("https://example.com/pr/1"),
+      this.createPullRequest("https://example.com/pr/2"),
+      this.createPullRequest("https://example.com/pr/3")
     ]
     let result = renderToCSV(input)
     expect(result.length).to.be.greaterThan(0)

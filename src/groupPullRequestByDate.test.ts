@@ -9,12 +9,18 @@ import { groupPullRequestByDate } from "./groupPullRequestByDate"
 
 @suite
 class GroupPullRequestByDateTests {
+  private createPullRequest(createdAt: string, closedAt: string): PullRequest {
+    return PullRequest.identity()
+      .withCreatedAt(new Date(createdAt))
+      .withClosedAt(new Date(closedAt))
+  }
+
   @test
   "groups when all within range"() {
     let input = [
-      new PullRequest("", new Date("2018-09-13 14:00:00"), new Date("2018-09-13 16:00:00")),
-      new PullRequest("", new Date("2018-09-14 14:00:00"), new Date("2018-09-14 16:00:00")),
-      new PullRequest("", new Date("2018-09-15 14:00:00"), new Date("2018-09-15 16:00:00"))
+      this.createPullRequest("2018-09-13 14:00:00", "2018-09-13 16:00:00"),
+      this.createPullRequest("2018-09-14 14:00:00", "2018-09-14 16:00:00"),
+      this.createPullRequest("2018-09-15 14:00:00", "2018-09-15 16:00:00")
     ]
     let grouped = groupPullRequestByDate(input)
     assert.equal(grouped.length, 1)
@@ -24,9 +30,9 @@ class GroupPullRequestByDateTests {
   @test
   "groups different weeks into new buckets"() {
     let input = [
-      new PullRequest("", new Date("2018-09-01 14:00:00"), new Date("2018-09-01 16:00:00")),
-      new PullRequest("", new Date("2018-09-09 14:00:00"), new Date("2018-09-09 16:00:00")),
-      new PullRequest("", new Date("2018-09-10 14:00:00"), new Date("2018-09-10 16:00:00"))
+      this.createPullRequest("2018-09-01 14:00:00", "2018-09-01 16:00:00"),
+      this.createPullRequest("2018-09-09 14:00:00", "2018-09-09 16:00:00"),
+      this.createPullRequest("2018-09-10 14:00:00", "2018-09-10 16:00:00")
     ]
     let grouped = groupPullRequestByDate(input)
     assert.equal(grouped.length, 3)
@@ -38,9 +44,9 @@ class GroupPullRequestByDateTests {
   @test
   "sorts oldest to newest"() {
     let input = [
-      new PullRequest("", new Date("2019-01-09 14:00:00"), new Date("2019-01-09 16:00:00")),
-      new PullRequest("", new Date("2018-12-01 14:00:00"), new Date("2018-12-01 16:00:00")),
-      new PullRequest("", new Date("2017-12-01 14:00:00"), new Date("2017-12-01 16:00:00"))
+      this.createPullRequest("2019-01-09 14:00:00", "2019-01-09 16:00:00"),
+      this.createPullRequest("2018-12-01 14:00:00", "2018-12-01 16:00:00"),
+      this.createPullRequest("2017-12-01 14:00:00", "2017-12-01 16:00:00")
     ]
     let grouped = groupPullRequestByDate(input)
     assert.equal(grouped[0][0].createdAt.getFullYear(), 2017)

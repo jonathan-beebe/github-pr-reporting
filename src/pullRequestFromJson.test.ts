@@ -8,13 +8,23 @@ import { valueAtKeyPath } from "./utils"
 import { toPullRequest } from "./pullRequestFromJson"
 
 const successResponseJsonObj = JSON.parse(readMock("sample_result"))
-let firstPullRequestJson = valueAtKeyPath(successResponseJsonObj, "data.repository.pullRequests.edges")[0]["node"]
+const firstPullRequestJson = valueAtKeyPath(successResponseJsonObj, "data.repository.pullRequests.edges")[0]["node"]
+const parsed = toPullRequest(firstPullRequestJson)
 
 @suite
 class PullRequestFromJsonTests {
   @test
-  "parses pull request json"() {
-    let parsed = toPullRequest(firstPullRequestJson)
+  "parsed pull request json"() {
     expect(parsed).to.not.be.null
+  }
+
+  @test
+  "calculates total comment count"() {
+    expect(parsed.commentCount).to.equal(5)
+  }
+
+  @test
+  "has first comment count"() {
+    expect(parsed.firstCommentDate).to.not.be.undefined
   }
 }
