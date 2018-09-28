@@ -4,8 +4,8 @@
   "tasks": [
     {
       "type": "npm",
-      "label": "build",
-      "script": "build",
+      "label": "compile",
+      "script": "compile",
       "group": {
         "kind": "build",
         "isDefault": true
