@@ -6,6 +6,10 @@ type PullRequestProps = {
   closedAt: Date
   commentCount: number
   firstCommentDate?: Date | undefined
+  reviewCount: number
+  participantCount: number
+  reactionCount: number
+  timelineCount: number
 }
 
 const pullRequestDefaults: PullRequestProps = {
@@ -13,7 +17,11 @@ const pullRequestDefaults: PullRequestProps = {
   createdAt: new Date("1970-01-01Z00:00:00:000"),
   closedAt: new Date("1970-01-01Z00:00:00:000"),
   commentCount: 0,
-  firstCommentDate: undefined
+  firstCommentDate: undefined,
+  reviewCount: 0,
+  participantCount: 0,
+  reactionCount: 0,
+  timelineCount: 0
 }
 
 export class PullRequest {
@@ -26,6 +34,10 @@ export class PullRequest {
   closedAt: Date
   commentCount: number
   firstCommentDate: Date | undefined
+  reviewCount: number
+  participantCount: number
+  reactionCount: number
+  timelineCount: number
 
   constructor(props: PullRequestProps) {
     this.url = props.url
@@ -33,6 +45,10 @@ export class PullRequest {
     this.closedAt = props.closedAt
     this.commentCount = props.commentCount
     this.firstCommentDate = props.firstCommentDate
+    this.reviewCount = props.reviewCount
+    this.participantCount = props.participantCount
+    this.reactionCount = props.reactionCount
+    this.timelineCount = props.timelineCount
   }
 
   get age(): number {
@@ -56,7 +72,11 @@ export class PullRequest {
       url: this.url,
       createdAt: this.createdAt,
       closedAt: this.closedAt,
-      commentCount: this.commentCount
+      commentCount: this.commentCount,
+      reviewCount: this.reviewCount,
+      participantCount: this.participantCount,
+      reactionCount: this.reactionCount,
+      timelineCount: this.timelineCount
     }
   }
 

@@ -27,4 +27,24 @@ class PullRequestFromJsonTests {
   "has first comment count"() {
     expect(parsed.firstCommentDate).to.not.be.undefined
   }
+
+  @test
+  "has review count"() {
+    expect(parsed.reviewCount).to.equal(1)
+  }
+
+  @test
+  "has participant count"() {
+    expect(parsed.participantCount).to.equal(3)
+  }
+
+  @test
+  "has reaction count"() {
+    expect(parsed.reactionCount).to.equal(12)
+  }
+
+  @test
+  "has timeline count"() {
+    expect(parsed.timelineCount).to.equal(9)
+  }
 }
