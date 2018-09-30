@@ -4,7 +4,7 @@ import { suite, test } from "mocha-typescript"
 import * as chai from "chai"
 const expect = chai.expect
 import { renderToCSV } from "./renderToCSV"
-import { PullRequest } from "./PullRequest"
+import { PullRequest } from "../models/PullRequest"
 
 @suite
 class RenderToCSVTests {

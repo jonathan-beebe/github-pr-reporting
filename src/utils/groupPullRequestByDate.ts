@@ -1,6 +1,6 @@
 "use strict"
 
-import { PullRequest } from "./PullRequest"
+import { PullRequest } from "../models/PullRequest"
 import * as dateUtils from "./dateUtils"
 import { group } from "./group"
 import * as moment from "moment"

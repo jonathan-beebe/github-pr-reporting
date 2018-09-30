@@ -1,6 +1,6 @@
 "use strict"
 
-import { PullRequest } from "./PullRequest"
+import { PullRequest } from "../models/PullRequest"
 
 export interface PullRequestCommentJson {
   createdAt: string

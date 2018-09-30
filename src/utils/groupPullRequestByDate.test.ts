@@ -4,7 +4,7 @@ import { suite, test, slow, timeout } from "mocha-typescript"
 import * as chai from "chai"
 const assert = chai.assert
 const expect = chai.expect
-import { PullRequest } from "./PullRequest"
+import { PullRequest } from "../models/PullRequest"
 import { groupPullRequestByDate } from "./groupPullRequestByDate"
 
 @suite

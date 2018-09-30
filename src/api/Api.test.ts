@@ -6,7 +6,7 @@ const expect = chai.expect
 import * as sinon from "sinon"
 import axios from "axios"
 import * as moxios from "moxios"
-import { readMock } from "./__mocks__/readMock"
+import { readMock } from "../__mocks__/readMock"
 import { Api, PagedCallbackResult } from "./Api"
 
 const successResponseJsonObj = JSON.parse(readMock("sample_result"))

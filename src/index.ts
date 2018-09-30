@@ -1,7 +1,7 @@
-import { PullRequest } from "./PullRequest"
-import { Api, PagedCallbackResult } from "./Api"
-import { renderToCSV } from "./renderToCSV"
-import { toPullRequest } from "./pullRequestFromJson"
+import { PullRequest } from "./models/PullRequest"
+import { Api, PagedCallbackResult } from "./api/Api"
+import { renderToCSV } from "./rendering/renderToCSV"
+import { toPullRequest } from "./utils/pullRequestFromJson"
 
 const args: any = process.argv
   .slice(2)

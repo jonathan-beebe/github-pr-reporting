@@ -1,7 +1,7 @@
 "use strict"
 
 import * as moment from "moment"
-import { groupPullRequestByDate } from "./groupPullRequestByDate"
+import { groupPullRequestByDate } from "../utils/groupPullRequestByDate"
 
 function median(arr) {
   arr = arr.sort((a, b) => a - b)
