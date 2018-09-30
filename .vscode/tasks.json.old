@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "command": "bash",
+  "args": [
+    "-c"
+  ],
+  "tasks": [
+    {
+      "type":"shell",
+      "label": "runMochaInDocker",
+      "command": "docker exec -i app bash -c \"./node_modules/.bin/mocha --inspect-brk:5858 --opts ./mocha.opts\""
+    }
+  ]
+}

@@ -116,7 +116,6 @@ Session.vim
 .netrwhist
 *~
 .settings
-.vscode
 typings
 jsconfig.json
 
