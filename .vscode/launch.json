@@ -10,7 +10,6 @@
         "args": [
             "--timeout",
             "999999",
-            "--colors",
             "--opts",
             "${workspaceFolder}/mocha.opts",
             "${workspaceFolder}/src/**/*.test.ts"
@@ -27,7 +26,6 @@
         "args": [
             "--timeout",
             "999999",
-            "--colors",
             "--opts",
             "${workspaceFolder}/mocha.opts",
             "${file}"

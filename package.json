@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --opts ./mocha.opts ./src/**/*.test.ts",
-    "build": "./node_modules/.bin/tsc",
+    "pretest": "yarn build",
+    "test": "mocha --opts ./mocha.opts ./src/**/*.test.ts",
+    "build": "tsc",
     "compileAndRun": "clear; npm run compile; node ./dist/index.js"
   },
   "author": "",
