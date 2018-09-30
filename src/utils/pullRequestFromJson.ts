@@ -2,13 +2,16 @@
 
 import { PullRequest } from "../models/PullRequest"
 
-export interface PullRequestCommentJson {
+export interface PullRequestCountableJson {
+  totalCount: number
+}
+
+export interface PullRequestCreatedAtJson {
   createdAt: string
 }
 
-export interface PullRequestCommentsJson {
-  totalCount: number
-  nodes: PullRequestCommentJson[]
+export interface PullRequestCreatedCollectionJson extends PullRequestCountableJson {
+  nodes: PullRequestCreatedAtJson[]
 }
 
 // An interface to describe the shape of a pull request expected from the api.
@@ -21,7 +24,11 @@ export interface PullRequestJson {
   changedFiles: number
   additions: number
   deletions: number
-  comments: PullRequestCommentsJson
+  comments: PullRequestCreatedCollectionJson
+  reviews: PullRequestCreatedCollectionJson
+  participants: PullRequestCountableJson
+  reactions: PullRequestCountableJson
+  timeline: PullRequestCountableJson
 }
 
 export const toPullRequest = (obj: PullRequestJson): PullRequest => {
