@@ -47,4 +47,19 @@ class PullRequestFromJsonTests {
   "has timeline count"() {
     expect(parsed.timelineCount).to.equal(9)
   }
+
+  @test
+  "has changed files count"() {
+    expect(parsed.changedFilesCount).to.equal(184)
+  }
+
+  @test
+  "has additions count"() {
+    expect(parsed.additionsCount).to.equal(24132)
+  }
+
+  @test
+  "has deletions count"() {
+    expect(parsed.deletionsCount).to.equal(11)
+  }
 }

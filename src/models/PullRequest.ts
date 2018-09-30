@@ -4,6 +4,9 @@ type PullRequestProps = {
   url: string
   createdAt: Date
   closedAt: Date
+  changedFilesCount: number
+  additionsCount: number
+  deletionsCount: number
   commentCount: number
   firstCommentDate?: Date | undefined
   reviewCount: number
@@ -16,6 +19,9 @@ const pullRequestDefaults: PullRequestProps = {
   url: "",
   createdAt: new Date("1970-01-01Z00:00:00:000"),
   closedAt: new Date("1970-01-01Z00:00:00:000"),
+  changedFilesCount: 0,
+  additionsCount: 0,
+  deletionsCount: 0,
   commentCount: 0,
   firstCommentDate: undefined,
   reviewCount: 0,
@@ -32,6 +38,9 @@ export class PullRequest {
   url: string
   createdAt: Date
   closedAt: Date
+  changedFilesCount: number
+  additionsCount: number
+  deletionsCount: number
   commentCount: number
   firstCommentDate: Date | undefined
   reviewCount: number
@@ -43,6 +52,9 @@ export class PullRequest {
     this.url = props.url
     this.createdAt = props.createdAt
     this.closedAt = props.closedAt
+    this.changedFilesCount = props.changedFilesCount
+    this.additionsCount = props.additionsCount
+    this.deletionsCount = props.deletionsCount
     this.commentCount = props.commentCount
     this.firstCommentDate = props.firstCommentDate
     this.reviewCount = props.reviewCount
@@ -72,6 +84,9 @@ export class PullRequest {
       url: this.url,
       createdAt: this.createdAt,
       closedAt: this.closedAt,
+      changedFilesCount: this.changedFilesCount,
+      additionsCount: this.additionsCount,
+      deletionsCount: this.deletionsCount,
       commentCount: this.commentCount,
       reviewCount: this.reviewCount,
       participantCount: this.participantCount,
