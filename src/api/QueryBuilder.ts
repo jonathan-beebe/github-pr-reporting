@@ -21,7 +21,7 @@ export class QueryBuilder {
   }
 
   build(): string {
-    let beforeCursorString = this.beforeCursor ? `before: \\\"${this.beforeCursor}\\\",` : ""
+    const beforeCursorString = this.beforeCursor ? `before: \\\"${this.beforeCursor}\\\",` : ""
     return `{
       repository(owner: \\\"${this.owner}\\\", name: \\\"${this.repo}\\\") {
         pullRequests(last: 100, ${beforeCursorString} states: [CLOSED,MERGED]) {

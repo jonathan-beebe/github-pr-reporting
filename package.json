@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "tslint --project ./tsconfig.json",
     "compile": "tsc",
+    "pretest": "yarn lint",
     "test": "mocha --opts ./mocha.opts ./src/**/*.test.ts",
-    "prestart": "yarn compile",
+    "prestart": "yarn lint && yarn compile",
     "start": "node ./dist/index.js"
   },
   "author": "",

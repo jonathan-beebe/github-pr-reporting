@@ -6,15 +6,17 @@ import { toPullRequest } from "./utils/pullRequestFromJson"
 const args: any = process.argv
   .slice(2)
   .map(arg => arg.split(":"))
-  .reduce((args, [value, key]) => {
-    args[value] = key
-    return args
+  .reduce((result, [value, key]) => {
+    result[value] = key
+    return result
   }, {})
 
-function flattenPages(pages) {
-  return pages.map(page => page["data"].repository.pullRequests.edges).reduce((result, next) => {
-    return result.concat(next)
-  }, [])
+function flattenPages(pagesArray) {
+  return pagesArray
+    .map(page => page.data.repository.pullRequests.edges)
+    .reduce((result, next) => {
+      return result.concat(next)
+    }, [])
 }
 
 function extractNode(data) {

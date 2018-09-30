@@ -14,15 +14,16 @@ interface TestItem {
 class GroupTests {
   @test
   group() {
-    let items: TestItem[] = [
+    const items: TestItem[] = [
       { name: "a", id: 1 },
       { name: "b", id: 2 },
       { name: "c", id: 3 },
       { name: "d", id: 4 },
-      { name: "e", id: 5 }
+      { name: "e", id: 5 },
     ]
-    let grouped = group(
+    const grouped = group(
       items,
+      // tslint:disable-next-line:no-shadowed-variable
       <TestItem>(a): string => {
         return `${a.id}`
       }

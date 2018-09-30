@@ -29,7 +29,7 @@ class QueryBuilderTests {
 
   @test
   "builds previous page pr query"() {
-    let cursor = "before-cursor-abcde"
+    const cursor = "before-cursor-abcde"
     this.builder.withBeforeCursor(cursor)
     expect(this.builder.build()).to.contain("before:")
     expect(this.builder.build()).to.contain(cursor)

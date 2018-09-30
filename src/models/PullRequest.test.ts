@@ -15,9 +15,9 @@ class PullRequestTest {
 
   @test
   "calculates age"() {
-    let createdAt = new Date("2018-09-13 14:00:00")
-    let closedAt = new Date("2018-09-13 16:00:00")
-    let pr = PullRequest.identity()
+    const createdAt = new Date("2018-09-13 14:00:00")
+    const closedAt = new Date("2018-09-13 16:00:00")
+    const pr = PullRequest.identity()
       .withCreatedAt(createdAt)
       .withClosedAt(closedAt)
     assert.equal(pr.age, 120 * 60 * 1000)

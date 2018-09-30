@@ -32,25 +32,25 @@ export interface PullRequestJson {
 }
 
 export const toPullRequest = (obj: PullRequestJson): PullRequest => {
-  let url = obj.url
-  let createdAt = new Date(obj.createdAt)
-  let closedAt = new Date(obj.closedAt)
-  let firstCommentDate = obj.comments.nodes.map(commentJson => {
+  const url = obj.url
+  const createdAt = new Date(obj.createdAt)
+  const closedAt = new Date(obj.closedAt)
+  const firstCommentDate = obj.comments.nodes.map(commentJson => {
     return new Date(commentJson.createdAt)
   })[0]
 
   return new PullRequest({
-    url: url,
-    createdAt: createdAt,
-    closedAt: closedAt,
+    url,
+    createdAt,
+    closedAt,
     changedFilesCount: obj.changedFiles,
     additionsCount: obj.additions,
     deletionsCount: obj.deletions,
     commentCount: obj.comments.totalCount,
-    firstCommentDate: firstCommentDate,
+    firstCommentDate,
     reviewCount: obj.reviews.totalCount,
     participantCount: obj.participants.totalCount,
     reactionCount: obj.reactions.totalCount,
-    timelineCount: obj.timeline.totalCount
+    timelineCount: obj.timeline.totalCount,
   })
 }

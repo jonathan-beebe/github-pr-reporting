@@ -3,8 +3,8 @@
 type GroupingCallback = <T>(t: T) => string
 
 export const group = <T>(items: T[], callback: GroupingCallback): T[][] => {
-  let grouped = items.reduce((result, x) => {
-    let key: string = callback(x)
+  const grouped = items.reduce((result, x) => {
+    const key: string = callback(x)
     if (!result[key]) {
       result[key] = []
     }

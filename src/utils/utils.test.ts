@@ -10,14 +10,14 @@ class KeyPathTests {
   target = {
     a: {
       b: {
-        c: "value"
-      }
+        c: "value",
+      },
     },
     x: {
       y: {
-        z: "other"
-      }
-    }
+        z: "other",
+      },
+    },
   }
 
   @test

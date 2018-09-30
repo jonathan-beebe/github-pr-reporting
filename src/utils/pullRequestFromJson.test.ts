@@ -8,7 +8,10 @@ import { valueAtKeyPath } from "./utils"
 import { toPullRequest } from "./pullRequestFromJson"
 
 const successResponseJsonObj = JSON.parse(readMock("sample_result"))
-const firstPullRequestJson = valueAtKeyPath(successResponseJsonObj, "data.repository.pullRequests.edges")[0]["node"]
+const firstPullRequestJson = valueAtKeyPath(
+  successResponseJsonObj,
+  "data.repository.pullRequests.edges"
+)[0].node
 const parsed = toPullRequest(firstPullRequestJson)
 
 @suite

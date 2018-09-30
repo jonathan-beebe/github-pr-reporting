@@ -27,7 +27,7 @@ const pullRequestDefaults: PullRequestProps = {
   reviewCount: 0,
   participantCount: 0,
   reactionCount: 0,
-  timelineCount: 0
+  timelineCount: 0,
 }
 
 export class PullRequest {
@@ -91,7 +91,7 @@ export class PullRequest {
       reviewCount: this.reviewCount,
       participantCount: this.participantCount,
       reactionCount: this.reactionCount,
-      timelineCount: this.timelineCount
+      timelineCount: this.timelineCount,
     }
   }
 

@@ -23,6 +23,6 @@ export const weekRangeFor = (input: Date): WeekRange => {
       .utc()
       .endOf("isoWeek")
       .utc()
-      .toDate()
+      .toDate(),
   }
 }

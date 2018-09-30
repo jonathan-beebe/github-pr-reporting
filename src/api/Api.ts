@@ -7,7 +7,27 @@ const userAgent = "github-graphql-test-app"
 
 export enum PagedCallbackResult {
   CONTINUE,
-  STOP
+  STOP,
+}
+
+interface FetchPullRequestsPageInfoJson {
+  startCursor: string
+}
+
+interface FetchPullRequestsJson {
+  pageInfo: FetchPullRequestsPageInfoJson
+}
+
+interface FetchPullRequestsRepositoryJson {
+  pullRequests: FetchPullRequestsJson
+}
+
+interface FetchPullRequestsDataJson {
+  repository: FetchPullRequestsRepositoryJson
+}
+
+interface FetchPullRequestsRootJson {
+  data: FetchPullRequestsDataJson
 }
 
 type PageCallback = (data: object) => PagedCallbackResult
@@ -19,20 +39,25 @@ export class Api {
     this.root = root
   }
 
-  async fetchPullRequests(owner: string, repo: string, token: string, nextCursor?: string): Promise<object> {
-    let queryBuilder = new QueryBuilder()
+  async fetchPullRequests(
+    owner: string,
+    repo: string,
+    token: string,
+    nextCursor?: string
+  ): Promise<FetchPullRequestsRootJson> {
+    const queryBuilder = new QueryBuilder()
       .withOwner(owner)
       .withRepoName(repo)
       .withBeforeCursor(nextCursor)
 
-    let requestOptions = {
+    const requestOptions = {
       headers: {
         "User-Agent": userAgent,
-        Authorization: `bearer ${token}`
-      }
+        "Authorization": `bearer ${token}`,
+      },
     }
 
-    return new Promise<object>((resolve, reject) => {
+    return new Promise<FetchPullRequestsRootJson>((resolve, reject) => {
       axios
         .post(this.root, `{ "query": "query ${queryBuilder.build()}" }`, requestOptions)
         .then(res => {
@@ -51,24 +76,24 @@ export class Api {
     repo: string,
     token: string,
     pageCallback: PageCallback
-  ): Promise<object[]> {
-    return new Promise<object[]>(async (resolve, reject) => {
-      let pages: object[] = []
+  ): Promise<FetchPullRequestsRootJson[]> {
+    return new Promise<FetchPullRequestsRootJson[]>(async (resolve, reject) => {
+      const pages: FetchPullRequestsRootJson[] = []
 
       try {
-        let firstPage = await this.fetchPullRequests(owner, repo, token)
+        const firstPage = await this.fetchPullRequests(owner, repo, token)
         pages.push(firstPage)
       } catch (error) {
         reject(error)
         return
       }
 
-      while (pageCallback(pages[pages.length - 1]) == PagedCallbackResult.CONTINUE) {
-        let lastPage = pages[pages.length - 1]
-        let pageInfo = lastPage["data"].repository.pullRequests.pageInfo
+      while (pageCallback(pages[pages.length - 1]) === PagedCallbackResult.CONTINUE) {
+        const lastPage = pages[pages.length - 1]
+        const pageInfo = lastPage.data.repository.pullRequests.pageInfo
 
         try {
-          let data = await this.fetchPullRequests(owner, repo, token, pageInfo.startCursor)
+          const data = await this.fetchPullRequests(owner, repo, token, pageInfo.startCursor)
           pages.push(data)
         } catch (error) {
           reject(error)
