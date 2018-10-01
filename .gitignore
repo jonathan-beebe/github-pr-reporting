@@ -121,3 +121,5 @@ jsconfig.json
 
 # Test artifacts
 testConfig.json
+
+.env

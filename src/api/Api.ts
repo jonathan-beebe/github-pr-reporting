@@ -43,7 +43,7 @@ export class Api {
     owner: string,
     repo: string,
     token: string,
-    nextCursor?: string
+    nextCursor?: string,
   ): Promise<FetchPullRequestsRootJson> {
     const queryBuilder = new QueryBuilder()
       .withOwner(owner)
@@ -66,6 +66,9 @@ export class Api {
         })
         .catch(err => {
           console.log(`\nRequest error! code: ${err.response.status}, description: ${err.response.statusText}\n`)
+          err.response.data.errors.array.forEach(element => {
+            console.error(element.message)
+          })
           reject(err)
         })
     })
@@ -75,7 +78,7 @@ export class Api {
     owner: string,
     repo: string,
     token: string,
-    pageCallback: PageCallback
+    pageCallback: PageCallback,
   ): Promise<FetchPullRequestsRootJson[]> {
     return new Promise<FetchPullRequestsRootJson[]>(async (resolve, reject) => {
       const pages: FetchPullRequestsRootJson[] = []

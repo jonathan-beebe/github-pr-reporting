@@ -27,10 +27,10 @@ function mapToPullRequestModel(data): PullRequest[] {
   return data.map(toPullRequest)
 }
 
-const owner = args.owner
-const repo = args.repo
-const token = args.token
-const pages = args.pages || 3
+const owner = args.owner || process.env.owner
+const repo  = args.repo  || process.env.repo
+const token = args.token || process.env.token
+const pages = args.pages || process.env.pages
 
 function main() {
   if (!token || !repo || !owner) {
