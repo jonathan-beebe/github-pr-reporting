@@ -1,4 +1,4 @@
 #!/bin/bash
-
 docker build . -t app
-docker run -it app yarn start
+printf -v args '%q ' "$@"
+docker run -it app yarn start $args
