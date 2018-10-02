@@ -38,6 +38,9 @@ export const toPullRequest = (obj: PullRequestJson): PullRequest => {
   const firstCommentDate = obj.comments.nodes.map(commentJson => {
     return new Date(commentJson.createdAt)
   })[0]
+  const firstReviewDate = obj.reviews.nodes.map(reviewJson => {
+    return new Date(reviewJson.createdAt)
+  })[0]
 
   return new PullRequest({
     url,
@@ -49,6 +52,7 @@ export const toPullRequest = (obj: PullRequestJson): PullRequest => {
     commentCount: obj.comments.totalCount,
     firstCommentDate,
     reviewCount: obj.reviews.totalCount,
+    firstReviewDate,
     participantCount: obj.participants.totalCount,
     reactionCount: obj.reactions.totalCount,
     timelineCount: obj.timeline.totalCount,

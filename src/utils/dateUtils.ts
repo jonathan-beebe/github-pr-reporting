@@ -26,3 +26,12 @@ export const weekRangeFor = (input: Date): WeekRange => {
       .toDate(),
   }
 }
+
+export const earliestDateIn = (dates: Date[]): Date | undefined => {
+  if (dates.length === 0) {
+    return undefined
+  }
+  return dates.reduce((previousDate, nextDate) => {
+    return moment(previousDate).isBefore(moment(nextDate)) ? previousDate : nextDate
+  }, dates[0])
+}

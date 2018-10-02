@@ -3,6 +3,8 @@
 import { suite, test } from "mocha-typescript"
 import * as chai from "chai"
 const expect = chai.expect
+// tslint:disable-next-line:no-var-requires
+chai.use(require("chai-datetime"))
 import { readMock } from "../__mocks__/readMock"
 import { valueAtKeyPath } from "./utils"
 import { toPullRequest } from "./pullRequestFromJson"
@@ -64,5 +66,15 @@ class PullRequestFromJsonTests {
   @test
   "has deletions count"() {
     expect(parsed.deletionsCount).to.equal(11)
+  }
+
+  @test
+  "has first comment date"() {
+    expect(parsed.firstCommentDate).to.equalTime(new Date("2018-04-24T20:40:59Z"))
+  }
+
+  @test
+  "has first review date"() {
+    expect(parsed.firstReviewDate).to.equalTime(new Date("2018-04-24T20:41:35Z"))
   }
 }

@@ -1,5 +1,9 @@
 "use strict"
 
+import * as dateUtils from "../utils/dateUtils"
+
+const REFERENCE_DATE = "1970-01-01Z00:00:00:000"
+
 type PullRequestProps = {
   url: string
   createdAt: Date
@@ -10,6 +14,7 @@ type PullRequestProps = {
   commentCount: number
   firstCommentDate?: Date | undefined
   reviewCount: number
+  firstReviewDate?: Date | undefined
   participantCount: number
   reactionCount: number
   timelineCount: number
@@ -17,14 +22,15 @@ type PullRequestProps = {
 
 const pullRequestDefaults: PullRequestProps = {
   url: "",
-  createdAt: new Date("1970-01-01Z00:00:00:000"),
-  closedAt: new Date("1970-01-01Z00:00:00:000"),
+  createdAt: new Date(REFERENCE_DATE),
+  closedAt: new Date(REFERENCE_DATE),
   changedFilesCount: 0,
   additionsCount: 0,
   deletionsCount: 0,
   commentCount: 0,
   firstCommentDate: undefined,
   reviewCount: 0,
+  firstReviewDate: undefined,
   participantCount: 0,
   reactionCount: 0,
   timelineCount: 0,
@@ -44,6 +50,7 @@ export class PullRequest {
   commentCount: number
   firstCommentDate: Date | undefined
   reviewCount: number
+  firstReviewDate: Date | undefined
   participantCount: number
   reactionCount: number
   timelineCount: number
@@ -58,6 +65,7 @@ export class PullRequest {
     this.commentCount = props.commentCount
     this.firstCommentDate = props.firstCommentDate
     this.reviewCount = props.reviewCount
+    this.firstReviewDate = props.firstReviewDate
     this.participantCount = props.participantCount
     this.reactionCount = props.reactionCount
     this.timelineCount = props.timelineCount
@@ -65,6 +73,19 @@ export class PullRequest {
 
   get age(): number {
     return this.closedAt.getTime() - this.createdAt.getTime()
+  }
+
+  get changeSize(): number {
+    return this.additionsCount + this.deletionsCount
+  }
+
+  get timeToFirstReviewerAction(): number | undefined {
+    const start = this.createdAt
+    const end = dateUtils.earliestDateIn([this.firstCommentDate, this.firstReviewDate])
+    if (start && end) {
+      return end.getTime() - start.getTime()
+    }
+    return undefined
   }
 
   withUrl(url: string): PullRequest {
@@ -79,6 +100,22 @@ export class PullRequest {
     return this.with("closedAt", date)
   }
 
+  withAdditions(num: number): PullRequest {
+    return this.with("additionsCount", num)
+  }
+
+  withDeletions(num: number): PullRequest {
+    return this.with("deletionsCount", num)
+  }
+
+  withReviewedAt(date: Date): PullRequest {
+    return this.with("firstReviewDate", date)
+  }
+
+  withCommentAt(date: Date): PullRequest {
+    return this.with("firstCommentDate", date)
+  }
+
   toObject(): PullRequestProps {
     return {
       url: this.url,
@@ -88,7 +125,9 @@ export class PullRequest {
       additionsCount: this.additionsCount,
       deletionsCount: this.deletionsCount,
       commentCount: this.commentCount,
+      firstCommentDate: this.firstCommentDate,
       reviewCount: this.reviewCount,
+      firstReviewDate: this.firstReviewDate,
       participantCount: this.participantCount,
       reactionCount: this.reactionCount,
       timelineCount: this.timelineCount,
