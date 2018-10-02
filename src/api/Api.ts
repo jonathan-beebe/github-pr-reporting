@@ -66,9 +66,12 @@ export class Api {
         })
         .catch(err => {
           console.log(`\nRequest error! code: ${err.response.status}, description: ${err.response.statusText}\n`)
-          err.response.data.errors.array.forEach(element => {
-            console.error(element.message)
-          })
+          const errors = err.response.data.errors.array
+          if (errors) {
+            errors.forEach(element => {
+              console.error(element.message)
+            })
+          }
           reject(err)
         })
     })

@@ -24,7 +24,7 @@ export class QueryBuilder {
     const beforeCursorString = this.beforeCursor ? `before: \\\"${this.beforeCursor}\\\",` : ""
     return `{
       repository(owner: \\\"${this.owner}\\\", name: \\\"${this.repo}\\\") {
-        pullRequests(last: 50, ${beforeCursorString} states: [CLOSED,MERGED]) {
+        pullRequests(last: 25, ${beforeCursorString} states: [CLOSED,MERGED]) {
           edges {
             node {
               url
