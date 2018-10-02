@@ -25,6 +25,7 @@ interface PullRequestStats {
   count: number
   age: PropertyStats<PullRequest>
   activity: PropertyStats<PullRequest>
+  changedFiles: PropertyStats<PullRequest>
 }
 
 function gatherAgeStats(arr: PullRequest[]): PropertyStats<PullRequest> {
@@ -49,6 +50,17 @@ function gatherActivityStats(arr: PullRequest[]): PropertyStats<PullRequest> {
   }
 }
 
+function gatherChangedFilesStats(arr: PullRequest[]): PropertyStats<PullRequest> {
+  const min = arr.reduce((a, b) => (a.changedFilesCount < b.changedFilesCount ? a : b))
+  const max = arr.reduce((a, b) => (a.changedFilesCount > b.changedFilesCount ? a : b))
+  const median = medianPullRequest(arr, pr => pr.changedFilesCount)
+  return {
+    min,
+    max,
+    median,
+  }
+}
+
 function gatherStats(arr: PullRequest[]): PullRequestStats {
   const startDate = moment(arr[0].createdAt)
     .utc()
@@ -66,6 +78,7 @@ function gatherStats(arr: PullRequest[]): PullRequestStats {
     count: arr.length,
     age: gatherAgeStats(arr),
     activity: gatherActivityStats(arr),
+    changedFiles: gatherChangedFilesStats(arr),
   }
 }
 
@@ -83,11 +96,9 @@ function pullRequestsToCsvRow(prsArray) {
   const minActivity    = (stats.activity.min.timeToFirstReviewerAction    / MILLISECONDS_PER_HOUR).toFixed(2)
   const maxActivity    = (stats.activity.max.timeToFirstReviewerAction    / MILLISECONDS_PER_HOUR).toFixed(2)
 
-  // console.log("\n", endDate)
-  // console.log("min activity", stats.activity.min.url)
-  // console.log("med activity", stats.activity.median.url)
-  // console.log("max activity", stats.activity.max.url)
-  // console.log("\n")
+  const medianFileCount = stats.changedFiles.median.changedFilesCount
+  const minFileCount    = stats.changedFiles.min.changedFilesCount
+  const maxFileCount    = stats.changedFiles.max.changedFilesCount
 
   return [
     startDate,
@@ -99,6 +110,9 @@ function pullRequestsToCsvRow(prsArray) {
     minActivity,
     medianActivity,
     maxActivity,
+    minFileCount,
+    medianFileCount,
+    maxFileCount,
     stats.age.min.url,
     stats.age.max.url,
   ]
@@ -114,6 +128,9 @@ const csvColumns = [
   "Min Activity",
   "Median Activity",
   "Max Activity",
+  "Min File Count",
+  "Median File Count",
+  "Max File Count",
   "Min Age ID",
   "Max Age ID",
 ]

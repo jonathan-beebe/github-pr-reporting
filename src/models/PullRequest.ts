@@ -100,6 +100,10 @@ export class PullRequest {
     return this.with("closedAt", date)
   }
 
+  withChangedFileCount(num: number): PullRequest {
+    return this.with("changedFilesCount", num)
+  }
+
   withAdditions(num: number): PullRequest {
     return this.with("additionsCount", num)
   }
