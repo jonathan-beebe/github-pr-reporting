@@ -12,6 +12,8 @@ function medianPullRequest(arr: PullRequest[], propertyGetter: ((item: PullReque
 }
 
 const MILLISECONDS_PER_HOUR = 3600000
+const DATE_FORMAT = "YYYY-MM-DD"
+const WEEK = "week"
 
 interface PropertyStats<T> {
   min: T
@@ -28,49 +30,39 @@ interface PullRequestStats {
   changedFiles: PropertyStats<PullRequest>
 }
 
-function gatherAgeStats(arr: PullRequest[]): PropertyStats<PullRequest> {
-  const min = arr.reduce((a, b) => (a.age < b.age ? a : b))
-  const max = arr.reduce((a, b) => (a.age > b.age ? a : b))
-  const median = medianPullRequest(arr, pr => pr.age)
+function gatherStatsForProperty(arr: PullRequest[], propertyName: string): PropertyStats<PullRequest> {
+  const min = arr.reduce((a, b) => (a[propertyName] < b[propertyName] ? a : b))
+  const max = arr.reduce((a, b) => (a[propertyName] > b[propertyName] ? a : b))
+  const median = medianPullRequest(arr, pr => pr[propertyName])
   return {
     min,
     max,
     median,
   }
+}
+
+function gatherAgeStats(arr: PullRequest[]): PropertyStats<PullRequest> {
+  return gatherStatsForProperty(arr, "age")
 }
 
 function gatherActivityStats(arr: PullRequest[]): PropertyStats<PullRequest> {
-  const min = arr.reduce((a, b) => (a.timeToFirstReviewerAction < b.timeToFirstReviewerAction ? a : b))
-  const max = arr.reduce((a, b) => (a.timeToFirstReviewerAction > b.timeToFirstReviewerAction ? a : b))
-  const median = medianPullRequest(arr, pr => pr.timeToFirstReviewerAction)
-  return {
-    min,
-    max,
-    median,
-  }
+  return gatherStatsForProperty(arr, "timeToFirstReviewerAction")
 }
 
 function gatherChangedFilesStats(arr: PullRequest[]): PropertyStats<PullRequest> {
-  const min = arr.reduce((a, b) => (a.changedFilesCount < b.changedFilesCount ? a : b))
-  const max = arr.reduce((a, b) => (a.changedFilesCount > b.changedFilesCount ? a : b))
-  const median = medianPullRequest(arr, pr => pr.changedFilesCount)
-  return {
-    min,
-    max,
-    median,
-  }
+  return gatherStatsForProperty(arr, "changedFilesCount")
 }
 
 function gatherStats(arr: PullRequest[]): PullRequestStats {
   const startDate = moment(arr[0].createdAt)
     .utc()
-    .startOf("week")
-    .format("YYYY-MM-DD")
+    .startOf(WEEK)
+    .format(DATE_FORMAT)
 
   const endDate = moment(arr[0].createdAt)
     .utc()
-    .endOf("week")
-    .format("YYYY-MM-DD")
+    .endOf(WEEK)
+    .format(DATE_FORMAT)
 
   return {
     start: startDate,
