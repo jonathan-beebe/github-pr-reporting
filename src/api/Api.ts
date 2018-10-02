@@ -2,6 +2,7 @@
 
 import { QueryBuilder } from "./QueryBuilder"
 import axios from "axios"
+import { valueAtKeyPath } from "../utils/utils"
 
 const userAgent = "github-graphql-test-app"
 
@@ -65,13 +66,25 @@ export class Api {
           resolve(res.data)
         })
         .catch(err => {
-          console.log(`\nRequest error! code: ${err.response.status}, description: ${err.response.statusText}\n`)
-          const errors = err.response.data.errors.array
-          if (errors) {
-            errors.forEach(element => {
-              console.error(element.message)
-            })
+          const code = valueAtKeyPath(err, "code")
+          switch (code) {
+            case "ENOTFOUND":
+              console.log("check your network connection")
+              break
+
+            default:
+              const status = valueAtKeyPath(err, "response.status")
+              const description = valueAtKeyPath(err, "response.statusText")
+              console.log(`\nRequest error! code: ${code}, status: ${status}, description: ${description}\n`)
+              const errors = valueAtKeyPath(err, "response.data.errors.array")
+              if (errors) {
+                errors.forEach(element => {
+                  console.error(element.message)
+                })
+              }
+              break
           }
+
           reject(err)
         })
     })
