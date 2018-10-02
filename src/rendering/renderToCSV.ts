@@ -2,6 +2,7 @@
 
 import * as moment from "moment"
 import { groupPullRequestByDate } from "../utils/groupPullRequestByDate"
+import { PullRequest } from "../models/PullRequest"
 
 function median(arr) {
   arr = arr.sort((a, b) => a - b)
@@ -10,6 +11,29 @@ function median(arr) {
 }
 
 const MILLISECONDS_PER_HOUR = 3600000
+
+interface PropertyStats<T> {
+  min: T
+  max: T
+  median: T
+}
+
+interface PullRequestStats {
+  start: Date
+  end: Date
+  count: number
+  min: PropertyStats<PullRequest>
+  max: PropertyStats<PullRequest>
+  median: PropertyStats<PullRequest>
+}
+
+// function gatherStats(arr: PullRequest[], propertyGetter: ((item: PullRequest) => number)): PullRequestStats {
+//   return {
+//     min: values.reduce((a, b) => (a < b ? a : b)),
+//     max: values.reduce((a, b) => (a > b ? a : b)),
+//     median: median(values),
+//   }
+// }
 
 export const renderToCSV = (prs): string => {
   const buffer: string[] = []
@@ -30,9 +54,8 @@ export const renderToCSV = (prs): string => {
     const minAge = (min.age / MILLISECONDS_PER_HOUR).toFixed(2)
     const maxAge = (max.age / MILLISECONDS_PER_HOUR).toFixed(2)
     buffer.push(
-      `${startDate}, ${endDate}, ${prsArray.length}, ${median(ages).toFixed(2)}, ${minAge}, ${maxAge}, ${min.url}, ${
-        max.url
-      }`
+      // tslint:disable-next-line:max-line-length
+      `${startDate}, ${endDate}, ${prsArray.length}, ${median(ages).toFixed(2)}, ${minAge}, ${maxAge}, ${min.url}, ${max.url}`
     )
     week -= 1
   })
