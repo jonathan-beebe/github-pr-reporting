@@ -28,6 +28,7 @@ interface PullRequestStats {
   age: PropertyStats<PullRequest>
   activity: PropertyStats<PullRequest>
   changedFiles: PropertyStats<PullRequest>
+  changeSize: PropertyStats<PullRequest>
 }
 
 function gatherStatsForProperty(arr: PullRequest[], propertyName: string): PropertyStats<PullRequest> {
@@ -53,6 +54,10 @@ function gatherChangedFilesStats(arr: PullRequest[]): PropertyStats<PullRequest>
   return gatherStatsForProperty(arr, "changedFilesCount")
 }
 
+function gatherChangeSizeStats(arr: PullRequest[]): PropertyStats<PullRequest> {
+  return gatherStatsForProperty(arr, "changeSize")
+}
+
 function gatherStats(arr: PullRequest[]): PullRequestStats {
   const startDate = moment(arr[0].createdAt)
     .utc()
@@ -71,6 +76,7 @@ function gatherStats(arr: PullRequest[]): PullRequestStats {
     age: gatherAgeStats(arr),
     activity: gatherActivityStats(arr),
     changedFiles: gatherChangedFilesStats(arr),
+    changeSize: gatherChangeSizeStats(arr),
   }
 }
 
@@ -92,6 +98,10 @@ function pullRequestsToCsvRow(prsArray) {
   const minFileCount    = stats.changedFiles.min.changedFilesCount
   const maxFileCount    = stats.changedFiles.max.changedFilesCount
 
+  const medianChangeSize = stats.changeSize.median.changeSize
+  const minChangeSize    = stats.changeSize.min.changeSize
+  const maxChangeSize    = stats.changeSize.max.changeSize
+
   return [
     startDate,
     endDate,
@@ -105,6 +115,9 @@ function pullRequestsToCsvRow(prsArray) {
     minFileCount,
     medianFileCount,
     maxFileCount,
+    minChangeSize,
+    medianChangeSize,
+    maxChangeSize,
     stats.age.min.url,
     stats.age.max.url,
   ]
@@ -123,6 +136,9 @@ const csvColumns = [
   "Min File Count",
   "Median File Count",
   "Max File Count",
+  "Min Change Size",
+  "Median Change Size",
+  "Max Change Size",
   "Min Age ID",
   "Max Age ID",
 ]
