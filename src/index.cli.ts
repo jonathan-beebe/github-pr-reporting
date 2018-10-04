@@ -36,7 +36,7 @@ function main() {
   if (!token || !repo || !owner) {
     console.log("Missing required parameter. You must specify the github owner, repo name, and github token.")
     console.log("Usage example:")
-    console.log("  npm run compileAndRun -- owner:facebook repo:react token:...your github token here...")
+    console.log("  yarn start owner:facebook repo:react token:your-github-token")
     return
   }
 

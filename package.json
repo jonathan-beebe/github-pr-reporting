@@ -9,7 +9,7 @@
     "pretest": "yarn lint",
     "test": "mocha --opts ./mocha.opts ./src/**/*.test.ts",
     "prestart": "yarn lint && yarn compile",
-    "start": "node ./dist/index.js"
+    "start": "node ./dist/index.cli.js"
   },
   "author": "",
   "license": "ISC",

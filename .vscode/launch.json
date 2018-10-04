@@ -6,7 +6,7 @@
       "request": "launch",
       "name": "Run",
       "preLaunchTask": "compile",
-      "program": "${workspaceFolder}/dist/index.js",
+      "program": "${workspaceFolder}/dist/index.cli.js",
       "envFile": "${workspaceFolder}/.env"
     },
     {
