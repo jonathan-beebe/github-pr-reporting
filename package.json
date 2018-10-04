@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "lint": "tslint --project ./tsconfig.json",
-    "compile": "tsc",
+    "clean-all": "rm -rf ./dist",
+    "compile-typescript": "tsc",
+    "clean-site-typescript": "rm ./dist/html/index.js*",
+    "compile-site": "cp ./src/html/index.html ./dist/html/index.html && webpack",
+    "compile": "yarn clean-all && yarn compile-typescript && yarn compile-site",
     "pretest": "yarn lint",
     "test": "mocha --opts ./mocha.opts ./src/**/*.test.ts",
     "prestart": "yarn lint && yarn compile",
-    "start": "node ./dist/index.cli.js",
-    "build-site": "rm -rf ./dist/html/* && cp ./src/index.html ./dist/html/index.html && webpack"
+    "start": "node ./dist/index.cli.js"
   },
   "author": "",
   "license": "ISC",

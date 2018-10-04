@@ -3,13 +3,7 @@ const path = require("path")
 const entry = require("webpack-glob-entry")
 
 module.exports = {
-    
-  // entry: {
-  //   "user-doc-list": "./public-src/user-doc-list",
-  //   other: "./public-src/other"
-  // },
-  // entry: glob.sync("./public-src/*.ts"),
-  entry: entry("./src/index.html.ts"),
+  entry: entry("./src/html/index.ts"),
 
   output: {
     path: path.join(__dirname, "dist/html"),

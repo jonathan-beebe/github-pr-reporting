@@ -1,8 +1,7 @@
 import * as express from "express"
 
 const server = express()
-console.log(__dirname)
-server.use(express.static(__dirname + "/html"))
+server.use(express.static(__dirname + "/"))
 
 const port = 5000
 server.listen(port, () => {

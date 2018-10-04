@@ -1,7 +1,7 @@
-import { PullRequest } from "./models/PullRequest"
-import { Api, PagedCallbackResult } from "./api/Api"
-import { renderToCSV } from "./rendering/renderToCSV"
-import { toPullRequest } from "./utils/pullRequestFromJson"
+import { PullRequest } from "../lib/models/PullRequest"
+import { Api, PagedCallbackResult } from "../lib/api/Api"
+import { renderToCSV } from "../lib/rendering/renderToCSV"
+import { toPullRequest } from "../lib/utils/pullRequestFromJson"
 
 const args: any = process.argv
   .slice(2)
@@ -27,12 +27,19 @@ function mapToPullRequestModel(data): PullRequest[] {
   return data.map(toPullRequest)
 }
 
-const owner = "facebook"
-const repo  = "react"
-const token = ""
-const pages = 6
+const owner = args.owner || process.env.owner
+const repo  = args.repo  || process.env.repo
+const token = args.token || process.env.token
+const pages = args.pages || process.env.pages
 
 function main() {
+  if (!token || !repo || !owner) {
+    console.log("Missing required parameter. You must specify the github owner, repo name, and github token.")
+    console.log("Usage example:")
+    console.log("  yarn start owner:facebook repo:react token:your-github-token")
+    return
+  }
+
   let currentPage = 0
   const maxPages = pages
   const api = new Api("https://api.github.com/graphql")
@@ -51,7 +58,7 @@ function main() {
     .then(extractNode)
     .then(mapToPullRequestModel)
     .then(renderToCSV)
-    .then(str => document.body.innerHTML = `<pre>${str}</pre>`)
+    .then(console.log)
     .catch(err => {
       console.log(`
         Error in main.
