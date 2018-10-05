@@ -1,0 +1,46 @@
+html, body {
+  font-family: "Avenir Next", Avenir, "Helvetica Neue", Helvetica;
+}
+
+body {
+  margin: 0 auto;
+  width: 20em;
+  padding: 2em;
+}
+
+table.spreadsheet {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.spreadsheet thead {
+  text-align: left;
+}
+
+.spreadsheet th,
+.spreadsheet tfoot td {
+  background: #333;
+  color: #ddd;
+  border: 1pt solid #333;
+  border-right: 1pt solid #777;
+}
+
+.spreadsheet th:last-child,
+.spreadsheet tfoot td:last-child {
+  border-right: 1pt solid #333;
+}
+
+.spreadsheet th,
+.spreadsheet td {
+  padding: 0.2em 0.5em;
+}
+
+.spreadsheet td {
+  border: 1pt solid #999;
+}
+
+.spreadsheet .time,
+.spreadsheet .percent {
+  font-family: Consolas, 'Liberation Mono', Menlo, "Courier New", Courier, monospace;
+  text-align: right;
+}

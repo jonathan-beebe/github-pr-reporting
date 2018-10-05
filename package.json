@@ -8,7 +8,7 @@
     "clean-all": "rm -rf ./dist",
     "compile-typescript": "tsc",
     "clean-site-typescript": "rm ./dist/html/index.js*",
-    "compile-site": "cp ./src/html/index.html ./dist/html/index.html && webpack",
+    "compile-site": "cp ./src/html/index.html ./dist/html/index.html && cp ./src/html/style.css ./dist/html/style.css && webpack",
     "compile": "yarn clean-all && yarn compile-typescript && yarn compile-site",
     "pretest": "yarn lint",
     "test": "mocha --opts ./mocha.opts ./src/**/*.test.ts",

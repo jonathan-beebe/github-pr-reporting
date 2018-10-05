@@ -1,12 +1,61 @@
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Github PR Reporting</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    section {
+      margin: 2em 0;
+    }
+
+    #progress {
+      display: relative;
+      font-family: monospace;
+      width: 100%;
+      text-align: center;
+    }
+
+    #progress-message {
+      display: inline-block;
+      line-height: 1em;
+      margin: 0.5em 0;
+    }
+
+    #progress-bar-container {
+      border: 1px solid darkgray;
+      height: 1.5em;
+      background: lightgray;
+    }
+
+    #progress-bar-inner {
+      height: 100%;
+      transition: width 1s;
+      background-color: teal;
+    }
+
+    form, label, input {
+      width: 100%;
+    }
+  </style>
 </head>
+
 <body>
-  <p>Hello World</p>
+  <section id="progress">
+    <span id="progress-message">Loading: <span id="loading-progress-value"></span></span>
+    <div id="progress-bar-container">
+      <div id="progress-bar-inner"></div>
+    </div>
+  </section>
+  <section>
+    <form id="form">
+      <label for="token">Github Personal Access Token</label>
+      <input type="text" name="token" id="github-token">
+    </form>
+  </section>
   <script src="index.bundle.js"></script>
 </body>
+
 </html>

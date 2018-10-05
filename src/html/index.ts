@@ -12,11 +12,9 @@ const args: any = process.argv
   }, {})
 
 function flattenPages(pagesArray) {
-  return pagesArray
-    .map(page => page.data.repository.pullRequests.edges)
-    .reduce((result, next) => {
-      return result.concat(next)
-    }, [])
+  return pagesArray.map(page => page.data.repository.pullRequests.edges).reduce((result, next) => {
+    return result.concat(next)
+  }, [])
 }
 
 function extractNode(data) {
@@ -28,14 +26,26 @@ function mapToPullRequestModel(data): PullRequest[] {
 }
 
 const owner = "facebook"
-const repo  = "react"
-const token = ""
-const pages = 6
+const repo = "react"
+const pages = 3
 
 function main() {
+  document.getElementById("loading-progress-value").innerHTML = `${0}%`
+  document.getElementById("progress-bar-inner").style.width = `${0}%`
+
+  const token = new URLSearchParams(window.location.search).get("token")
+  if (token) {
+    fetchDataWithToken(token)
+    const form = document.getElementById("form")
+    form.parentNode.removeChild(form)
+  }
+}
+
+function fetchDataWithToken(token: string) {
   let currentPage = 0
   const maxPages = pages
   const api = new Api("https://api.github.com/graphql")
+
   api
     .fetchPagesOfPullRequests(
       owner,
@@ -43,15 +53,18 @@ function main() {
       token,
       (data): PagedCallbackResult => {
         currentPage += 1
-        console.log(`fetched page ${currentPage}`)
+        const progress = currentPage / pages
+        const progressStr = `${(progress * 100).toFixed(0)}%`
+        document.getElementById("loading-progress-value").innerHTML = `${progressStr}`
+        document.getElementById("progress-bar-inner").style.width = `${progressStr}`
         return currentPage >= maxPages ? PagedCallbackResult.STOP : PagedCallbackResult.CONTINUE
-      }
+      },
     )
     .then(flattenPages)
     .then(extractNode)
     .then(mapToPullRequestModel)
     .then(renderToCSV)
-    .then(str => document.body.innerHTML = `<pre>${str}</pre>`)
+    .then(str => (document.body.innerHTML = `<pre>${str}</pre>`))
     .catch(err => {
       console.log(`
         Error in main.
