@@ -21,7 +21,7 @@ interface PropertyStats<T> {
   median: T
 }
 
-interface PullRequestStats {
+export interface PullRequestStats {
   start: string
   end: string
   count: number
@@ -58,7 +58,7 @@ function gatherChangeSizeStats(arr: PullRequest[]): PropertyStats<PullRequest> {
   return gatherStatsForProperty(arr, "changeSize")
 }
 
-function gatherStats(arr: PullRequest[]): PullRequestStats {
+export const gatherStats = (arr: PullRequest[]): PullRequestStats => {
   const startDate = moment(arr[0].createdAt)
     .utc()
     .startOf(WEEK)

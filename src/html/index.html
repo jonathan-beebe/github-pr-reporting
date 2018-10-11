@@ -14,7 +14,8 @@
     #progress {
       display: relative;
       font-family: monospace;
-      width: 100%;
+      width: 20em;
+      margin: 0 auto;
       text-align: center;
     }
 
@@ -51,9 +52,19 @@
   </section>
   <section>
     <form id="form">
+      <label for="token">Repo Owner</label>
+      <input type="text" name="owner">
+      <label for="token">Repo Name</label>
+      <input type="text" name="repo">
+      <label for="token">Pages</label>
+      <input type="text" name="pages">
       <label for="token">Github Personal Access Token</label>
-      <input type="text" name="token" id="github-token">
+      <input type="text" name="token">
+      <input type="submit" value="Submit" />
     </form>
+  </section>
+  <section id="chart-container">
+    <canvas id="chart"></canvas>
   </section>
   <script src="index.bundle.js"></script>
 </body>
