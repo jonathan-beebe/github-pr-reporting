@@ -1,40 +1,9 @@
 import { PullRequest } from "../lib/models/PullRequest"
 import { Api, PagedCallbackResult } from "../lib/api/Api"
-import { renderToCSV } from "../lib/rendering/renderToCSV"
 import { toPullRequest } from "../lib/utils/pullRequestFromJson"
+import { gatherStats } from "../lib/rendering/gatherStats"
 import { groupPullRequestByDate } from "../lib/utils/groupPullRequestByDate"
-import { PullRequestStats, gatherStats } from "../lib/rendering/renderToCSV"
-import * as chart from "chart.js"
-
-let myChart
-
-function renderToChart(data: PullRequestStats[]) {
-  const config = {
-    type: "bar",
-    options: {
-      animation: {
-        duration: 0,
-      },
-    },
-    data: {
-      labels: data.map(stats => stats.start),
-      datasets: [{
-        label: "Number of Pull Requests",
-        data: data.map(stats => stats.count),
-      }],
-    },
-  }
-
-  const canvas = document.getElementById("chart") as HTMLCanvasElement
-  const ctx = canvas.getContext("2d")
-  if (myChart) {
-    myChart.config = config
-    myChart.update()
-  }
-  else {
-    myChart = new chart.Chart(ctx, config)
-  }
-}
+import { renderToChart } from "../lib/rendering/renderToChart"
 
 const args: any = process.argv
   .slice(2)
@@ -66,6 +35,7 @@ function main() {
   const owner = new URLSearchParams(window.location.search).get("owner")
   const repo = new URLSearchParams(window.location.search).get("repo")
   const pages = Number(new URLSearchParams(window.location.search).get("pages") || 3)
+
   if (token && owner && repo) {
     fetchDataWithToken(token, owner, repo, pages)
     const form = document.getElementById("form")
@@ -78,7 +48,7 @@ function fetchDataWithToken(token: string, owner: string, repo: string, pages: n
   const maxPages = pages
   const api = new Api("https://api.github.com/graphql")
 
-  const render =data => {
+  const render = data => {
     Promise.resolve(data)
       .then(flattenPages)
       .then(extractNode)
