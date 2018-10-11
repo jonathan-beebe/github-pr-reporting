@@ -43,3 +43,14 @@ pages=6
 token=your-github-token
 ```
 
+## Web View
+
+To compile and run the html view use
+
+`yarn compile; node dist/html/server.js`
+
+Then load the page at http://localhost:5000
+
+The url after submitting the form will be something like
+
+http://localhost:5000/?owner=facebook&repo=react&pages=10&token=your-github-token
